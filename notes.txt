@@ -1,0 +1,13 @@
+- Customize admin panel (show id, search/filters for fields, etc.)
+- Replace login with OAuth (pricing? org emails/specific people?)
+- Update brother model (First/Last, id as chapter roll #, class year; see excel file & debate what to keep)
+    - Better model for positions; many-to-many
+    - pictures?
+- Table for majors
+    - would need to be 1-many for duals
+    - minors?
+- Table for exec positions
+    - Keep all prior pos. names, or update all to modern?
+- 
+- change to PostgreSQL
+- demo & feedback
