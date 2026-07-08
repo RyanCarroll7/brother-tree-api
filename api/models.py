@@ -49,14 +49,15 @@ class Brother(models.Model):
             raise ValidationError(
                 {"big_brother": "Brother cannot be their own big brother."}
             )
-        else:
-            ancestor = self.big_brother
-            while ancestor:
-                if ancestor.id == self.id:
-                    raise ValidationError(
-                        {"big_brother": "Cycle detected in brother hierarchy."}
-                    )
-                ancestor = ancestor.big_brother
+        visited = set()
+        ancestor = self.big_brother
+        while ancestor:
+            if ancestor.id == self.id or ancestor.id in visited:
+                raise ValidationError(
+                    {"big_brother": "Cycle detected in brother hierarchy."}
+                )
+            visited.add(ancestor.id)
+            ancestor = ancestor.big_brother
 
     def __str__(self):
         return self.full_name
