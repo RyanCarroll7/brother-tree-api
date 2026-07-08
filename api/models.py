@@ -17,7 +17,11 @@ class Brother(models.Model):
     last_name = models.CharField(max_length=100)
     suffix = models.CharField(max_length=100, null=True, blank=True)
 
-    initiation_date = models.DateField(validators=[validators.MinValueValidator(date(1938, 4, 23))], null=True, blank=True)
+    initiation_date = models.DateField(
+        validators=[validators.MinValueValidator(date(1938, 4, 23))],
+        null=True,
+        blank=True,
+    )
     grad_year = models.IntegerField(validators=[validators.MinValueValidator(1938)])
     major = models.CharField(max_length=100, null=True, blank=True)
 
@@ -31,7 +35,8 @@ class Brother(models.Model):
 
     @property
     def full_name(self):
-        return f'{self.first_name}{f" {self.middle_name[0]}." if self.middle_name else ""} {self.last_name}{f", {self.suffix}" if self.suffix else ""} \'{self.grad_year % 100}'
+        # TODO: Not all suffixes are followed by a comma
+        return f'{self.first_name}{f" {self.middle_name[0]}." if self.middle_name else ""} {self.last_name}{f", {self.suffix}" if self.suffix else ""} \'{str(self.grad_year)[-2:]}'
 
     @property
     def initiation_term(self):
